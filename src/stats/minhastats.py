@@ -8,10 +8,41 @@ def media(lista):
 
 
 def mediana(lista):
-    pass
+    lista_ordenada = sorted(lista)
+    n = len(lista_ordenada)
+
+    meio = n // 2
+
+    if n % 2 != 0:
+        return lista_ordenada[meio]
+    else:
+        return (lista_ordenada[meio - 1] + lista_ordenada[meio]) / 2
 
 def moda(lista):
-    pass
+    if not lista:
+        return None
+
+    contagem = {}
+    for numero in lista:
+        if numero in contagem:
+            contagem[numero] += 1
+        else:
+            contagem[numero] = 1
+
+    max_frequencia = max(contagem.values())
+
+    if max_frequencia == 1:
+        return "Não existe moda"
+
+    modas = []
+    for numero, frequencia in contagem.items():
+        if frequencia == max_frequencia:
+            modas.append(numero)
+
+    if len(modas) == 1:
+        return modas[0]
+    
+    return modas
 
 def amplitude(lista):
     pass
