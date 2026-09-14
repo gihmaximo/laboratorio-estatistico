@@ -1,6 +1,6 @@
 import numpy as np
 import scipy.stats as stats
-import minhastats as ms
+import stats.minhastats as ms
 
 def executar_testes_automatizados():
     # Conjunto de dados de teste (garantindo variabilidade estatística)
