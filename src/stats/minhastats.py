@@ -151,3 +151,77 @@ def correlacao_pearson(lista_x, lista_y):
         return 0
         
     return cov / (dp_x * dp_y)
+
+def regressao_linear(lista_x, lista_y):
+    if len(lista_x) != len(lista_y):
+        raise ValueError("As duas listas devem ter o mesmo tamanho")
+
+    if len(lista_x) < 2:
+        return 0, 0
+
+    media_x = media(lista_x)
+    media_y = media(lista_y)
+
+    numerador = 0
+    denominador = 0
+
+    for i in range(len(lista_x)):
+        numerador += (
+            (lista_x[i] - media_x)
+            * (lista_y[i] - media_y)
+        )
+
+        denominador += (
+            (lista_x[i] - media_x) ** 2
+        )
+
+    if denominador == 0:
+        return 0, media_y
+
+    coeficiente_angular = numerador / denominador
+
+    coeficiente_linear = (
+        media_y
+        - coeficiente_angular * media_x
+    )
+
+    return coeficiente_angular, coeficiente_linear
+
+
+def coeficiente_determinacao(lista_x, lista_y):
+    if len(lista_x) != len(lista_y):
+        raise ValueError("As duas listas devem ter o mesmo tamanho")
+
+    if len(lista_x) == 0:
+        return 0
+
+    coeficiente_angular, coeficiente_linear = regressao_linear(
+        lista_x,
+        lista_y
+    )
+
+    media_y = media(lista_y)
+
+    soma_total = 0
+    soma_residuos = 0
+
+    for i in range(len(lista_y)):
+        y_estimado = (
+            coeficiente_angular * lista_x[i]
+            + coeficiente_linear
+        )
+
+        soma_total += (
+            lista_y[i] - media_y
+        ) ** 2
+
+        soma_residuos += (
+            lista_y[i] - y_estimado
+        ) ** 2
+
+    if soma_total == 0:
+        return 0
+
+    return 1 - (
+        soma_residuos / soma_total
+    )

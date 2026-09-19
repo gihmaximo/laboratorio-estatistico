@@ -1,72 +1,348 @@
+import sys
+from pathlib import Path
+
 import numpy as np
 import scipy.stats as stats
+
+
+# Adiciona a pasta src ao caminho de importação.
+PASTA_SRC = Path(__file__).resolve().parents[1] / "src"
+sys.path.insert(0, str(PASTA_SRC))
+
 import stats.minhastats as ms
 
-def executar_testes_automatizados():
-    # Conjunto de dados de teste (garantindo variabilidade estatística)
-    dados_x = [12, 15, 18, 22, 25, 30, 35, 40, 18]
-    dados_y = [5, 8, 12, 14, 20, 22, 28, 32, 15]
-    
-    # Tolerância estrita documentada para arredondamento de float
-    tol = 1e-5
-    print("🧪 INICIANDO TESTES AUTOMATIZADOS (minhastats vs NumPy/SciPy):\n")
+# ============================================================
+# DADOS DE TESTE
+# ============================================================
 
-    assert abs(ms.media(dados_x) - np.mean(dados_x)) < tol, "Falha na Média"
-    print("✅ Média: Validada com NumPy")
+dados_x = [
+    12, 15, 18, 22, 25,
+    30, 35, 40, 18
+]
 
-    assert abs(ms.mediana(dados_x) - np.median(dados_x)) < tol, "Falha na Mediana"
-    print("✅ Mediana: Validada com NumPy")
+dados_y = [
+    5, 8, 12, 14, 20,
+    22, 28, 32, 15
+]
 
-    moda_res = ms.moda(dados_x)
-    moda_numpy = int(stats.mode(dados_x, keepdims=True).mode[0])
-    assert moda_res == moda_numpy, f"Falha na Moda: esperado {moda_numpy}, obteve {moda_res}"
-    print("✅ Moda: Validada com SciPy")
+# Tolerância utilizada para comparar resultados
+# de ponto flutuante.
+TOLERANCIA = 1e-5
 
-    amp_numpy = int(np.max(dados_x) - np.min(dados_x))
-    assert abs(ms.amplitude(dados_x) - amp_numpy) < tol, "Falha na Amplitude"
-    print("✅ Amplitude: Validada com NumPy")
 
-    assert abs(ms.variancia_populacional(dados_x) - np.var(dados_x, ddof=0)) < tol, "Falha na Variância Populacional"
-    assert abs(ms.variancia_amostral(dados_x) - np.var(dados_x, ddof=1)) < tol, "Falha na Variância Amostral"
-    print("✅ Variâncias (Populacional e Amostral): Validadas com NumPy")
+# ============================================================
+# MEDIDAS DE TENDÊNCIA CENTRAL
+# ============================================================
 
-    assert abs(ms.desvio_padrao_populacional(dados_x) - np.std(dados_x, ddof=0)) < tol, "Falha no Desvio Padrão Populacional"
-    assert abs(ms.desvio_padrao_amostral(dados_x) - np.std(dados_x, ddof=1)) < tol, "Falha no Desvio Padrão Amostral"
-    print("✅ Desvios Padrão (Populacional e Amostral): Validados com NumPy")
+def test_media():
+    resultado = ms.media(dados_x)
+    esperado = np.mean(dados_x)
 
-    assert abs(ms.percentil(dados_x, 25) - np.percentile(dados_x, 25, method='linear')) < tol, "Falha no Percentil 25"
-    q1, q2, q3 = ms.quartis(dados_x)
-    assert abs(q1 - np.percentile(dados_x, 25, method='linear')) < tol, "Falha no Q1"
-    assert abs(q2 - np.percentile(dados_x, 50, method='linear')) < tol, "Falha no Q2"
-    assert abs(q3 - np.percentile(dados_x, 75, method='linear')) < tol, "Falha no Q3"
-    print("✅ Quartis e Percentis: Validados com NumPy (Interpolação Linear)")
+    assert abs(resultado - esperado) < TOLERANCIA
 
-    cv_numpy = (np.std(dados_x, ddof=1) / np.mean(dados_x)) * 100
-    assert abs(ms.coeficiente_variacao(dados_x) - cv_numpy) < tol, "Falha no Coeficiente de Variação"
-    print("✅ Coeficiente de Variação: Validado com NumPy")
 
-    cov_numpy = np.cov(dados_x, dados_y)[0][1]
-    assert abs(ms.covariancia(dados_x, dados_y) - cov_numpy) < tol, "Falha na Covariância"
-    print("✅ Covariância: Validada com NumPy")
+def test_mediana():
+    resultado = ms.mediana(dados_x)
+    esperado = np.median(dados_x)
 
-    corr_numpy = np.corrcoef(dados_x, dados_y)[0][1]
-    assert abs(ms.correlacao_pearson(dados_x, dados_y) - corr_numpy) < tol, "Falha na Correlação de Pearson"
-    print("✅ Correlação de Pearson: Validada com NumPy")
+    assert abs(resultado - esperado) < TOLERANCIA
 
-    print("\n🚀 Testes concluídos e validados com sucesso!")
 
-    print("\n⚠️ VALIDANDO CASOS EXTREMOS (Proteção contra falhas):")
-    
-    vazia = []
-    assert ms.media(vazia) == 0, "Falha: Média com lista vazia"
-    assert ms.variancia_populacional(vazia) == 0, "Falha: Variância Pop com lista vazia"
-    assert ms.variancia_amostral(vazia) == 0, "Falha: Variância Amostral com lista vazia"
-    print("✅ Tratamento de Lista Vazia: OK")
+def test_moda():
+    resultado = ms.moda(dados_x)
+    esperado = int(
+        stats.mode(
+            dados_x,
+            keepdims=True
+        ).mode[0]
+    )
 
-    unico = [42]
-    assert ms.media(unico) == 42, "Falha: Média com 1 elemento"
-    assert ms.variancia_amostral(unico) == 0, "Falha: Variância Amostral com 1 elemento (Evitou divisão por zero!)"
-    print("✅ Tratamento de Elemento Único: OK")
+    assert resultado == esperado
 
-if __name__ == "__main__":
-    executar_testes_automatizados()
+
+# ============================================================
+# MEDIDAS DE DISPERSÃO
+# ============================================================
+
+def test_amplitude():
+    resultado = ms.amplitude(dados_x)
+    esperado = np.max(dados_x) - np.min(dados_x)
+
+    assert abs(resultado - esperado) < TOLERANCIA
+
+
+def test_variancia_populacional():
+    resultado = ms.variancia_populacional(
+        dados_x
+    )
+
+    esperado = np.var(
+        dados_x,
+        ddof=0
+    )
+
+    assert abs(resultado - esperado) < TOLERANCIA
+
+
+def test_variancia_amostral():
+    resultado = ms.variancia_amostral(
+        dados_x
+    )
+
+    esperado = np.var(
+        dados_x,
+        ddof=1
+    )
+
+    assert abs(resultado - esperado) < TOLERANCIA
+
+
+def test_desvio_padrao_populacional():
+    resultado = ms.desvio_padrao_populacional(
+        dados_x
+    )
+
+    esperado = np.std(
+        dados_x,
+        ddof=0
+    )
+
+    assert abs(resultado - esperado) < TOLERANCIA
+
+
+def test_desvio_padrao_amostral():
+    resultado = ms.desvio_padrao_amostral(
+        dados_x
+    )
+
+    esperado = np.std(
+        dados_x,
+        ddof=1
+    )
+
+    assert abs(resultado - esperado) < TOLERANCIA
+
+
+# ============================================================
+# PERCENTIS E QUARTIS
+# ============================================================
+
+def test_percentil():
+    resultado = ms.percentil(
+        dados_x,
+        25
+    )
+
+    esperado = np.percentile(
+        dados_x,
+        25,
+        method="linear"
+    )
+
+    assert abs(resultado - esperado) < TOLERANCIA
+
+
+def test_quartis():
+    q1, q2, q3 = ms.quartis(
+        dados_x
+    )
+
+    esperado_q1 = np.percentile(
+        dados_x,
+        25,
+        method="linear"
+    )
+
+    esperado_q2 = np.percentile(
+        dados_x,
+        50,
+        method="linear"
+    )
+
+    esperado_q3 = np.percentile(
+        dados_x,
+        75,
+        method="linear"
+    )
+
+    assert abs(
+        q1 - esperado_q1
+    ) < TOLERANCIA
+
+    assert abs(
+        q2 - esperado_q2
+    ) < TOLERANCIA
+
+    assert abs(
+        q3 - esperado_q3
+    ) < TOLERANCIA
+
+
+# ============================================================
+# COEFICIENTE DE VARIAÇÃO
+# ============================================================
+
+def test_coeficiente_variacao():
+    resultado = ms.coeficiente_variacao(
+        dados_x
+    )
+
+    esperado = (
+        np.std(
+            dados_x,
+            ddof=1
+        )
+        / np.mean(dados_x)
+    ) * 100
+
+    assert abs(
+        resultado - esperado
+    ) < TOLERANCIA
+
+
+# ============================================================
+# COVARIÂNCIA E CORRELAÇÃO
+# ============================================================
+
+def test_covariancia():
+    resultado = ms.covariancia(
+        dados_x,
+        dados_y
+    )
+
+    esperado = np.cov(
+        dados_x,
+        dados_y
+    )[0][1]
+
+    assert abs(
+        resultado - esperado
+    ) < TOLERANCIA
+
+
+def test_correlacao_pearson():
+    resultado = ms.correlacao_pearson(
+        dados_x,
+        dados_y
+    )
+
+    esperado = np.corrcoef(
+        dados_x,
+        dados_y
+    )[0][1]
+
+    assert abs(
+        resultado - esperado
+    ) < TOLERANCIA
+
+
+# ============================================================
+# REGRESSÃO LINEAR
+# ============================================================
+
+def test_regressao_linear():
+    coeficiente_angular, coeficiente_linear = (
+        ms.regressao_linear(
+            dados_x,
+            dados_y
+        )
+    )
+
+    esperado_angular, esperado_linear = (
+        np.polyfit(
+            dados_x,
+            dados_y,
+            1
+        )
+    )
+
+    assert abs(
+        coeficiente_angular - esperado_angular
+    ) < TOLERANCIA
+
+    assert abs(
+        coeficiente_linear - esperado_linear
+    ) < TOLERANCIA
+
+
+# ============================================================
+# COEFICIENTE DE DETERMINAÇÃO — R²
+# ============================================================
+
+def test_coeficiente_determinacao():
+    resultado = ms.coeficiente_determinacao(
+        dados_x,
+        dados_y
+    )
+
+    correlacao = np.corrcoef(
+        dados_x,
+        dados_y
+    )[0][1]
+
+    esperado = correlacao ** 2
+
+    assert abs(
+        resultado - esperado
+    ) < TOLERANCIA
+
+
+# ============================================================
+# CASOS EXTREMOS
+# ============================================================
+
+def test_lista_vazia():
+    lista_vazia = []
+
+    assert ms.media(
+        lista_vazia
+    ) == 0
+
+    assert ms.variancia_populacional(
+        lista_vazia
+    ) == 0
+
+    assert ms.variancia_amostral(
+        lista_vazia
+    ) == 0
+
+
+def test_elemento_unico():
+    lista = [42]
+
+    assert ms.media(
+        lista
+    ) == 42
+
+    assert ms.variancia_amostral(
+        lista
+    ) == 0
+
+
+def test_listas_com_tamanhos_diferentes():
+    lista_x = [1, 2, 3]
+    lista_y = [1, 2]
+
+    try:
+        ms.covariancia(
+            lista_x,
+            lista_y
+        )
+
+        assert False
+
+    except ValueError:
+        assert True
+
+
+def test_percentil_invalido():
+    try:
+        ms.percentil(
+            dados_x,
+            101
+        )
+
+        assert False
+
+    except ValueError:
+        assert True
