@@ -1,7 +1,7 @@
 
-# Relatório — Laboratório Estatístico Interativo
+# Relatório | Laboratório Estatístico Interativo
 
-**Nome:** Giovanna Martins Maximo  | **atrícula:** 72650082
+**Nome:** Giovanna Martins Maximo  | **Matrícula:** 72650082
 
 ## 1. Introdução
 
