@@ -614,7 +614,7 @@ elif pagina == "Estatística Descritiva":
 
         st.subheader("Histograma")
 
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(6, 3))
 
         ax.hist(
             valores,
@@ -645,7 +645,7 @@ elif pagina == "Estatística Descritiva":
 
         st.subheader("Boxplot")
 
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(6, 3))
 
         ax.boxplot(
             valores,
@@ -770,7 +770,7 @@ elif pagina == "Estatística Descritiva":
 
         top = frequencias.head(15)
 
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(6, 3))
 
         ax.bar(
             top.iloc[:, 0].astype(str),
@@ -888,7 +888,7 @@ elif pagina == "Monte Carlo":
                     frequencia
                 )
 
-            fig, ax = plt.subplots()
+            fig, ax = plt.subplots(figsize=(6, 3))
 
             ax.plot(
                 frequencia_acumulada
@@ -991,7 +991,7 @@ elif pagina == "Monte Carlo":
                     media(amostra)
                 )
 
-            fig, ax = plt.subplots()
+            fig, ax = plt.subplots(figsize=(6, 3))
 
             ax.hist(
                 medias_amostrais,
@@ -1073,7 +1073,7 @@ elif pagina == "Distribuições":
             formatar_numero(desvio)
         )
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(6, 3))
 
     frequencias_hist, limites, _ = ax.hist(
         valores,
@@ -1264,7 +1264,7 @@ elif pagina == "Correlação e Regressão":
 
     st.subheader("Dispersão e reta de regressão")
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(6, 3))
 
     ax.scatter(
         valores_x,

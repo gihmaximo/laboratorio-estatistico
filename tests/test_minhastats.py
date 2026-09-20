@@ -4,7 +4,6 @@ from pathlib import Path
 import numpy as np
 import scipy.stats as stats
 
-
 # Adiciona a pasta src ao caminho de importação.
 PASTA_SRC = Path(__file__).resolve().parents[1] / "src"
 sys.path.insert(0, str(PASTA_SRC))
@@ -25,8 +24,7 @@ dados_y = [
     22, 28, 32, 15
 ]
 
-# Tolerância utilizada para comparar resultados
-# de ponto flutuante.
+# Tolerância utilizada para comparar resultados de ponto flutuante.
 TOLERANCIA = 1e-5
 
 
