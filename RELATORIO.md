@@ -1,7 +1,7 @@
-
 # Relatório | Laboratório Estatístico Interativo
 
-**Nome:** Giovanna Martins Maximo  | **Matrícula:** 72650082
+**Nome:** Giovanna Martins Maximo  
+**Matrícula:** 72650082
 
 ## 1. Introdução
 
@@ -20,14 +20,15 @@ https://www.kaggle.com/datasets/gildasledrogoff/spotify-huge-track-analysis-data
 Após o processo de filtragem, foram selecionadas músicas de 10 artistas:
 
 - Linkin Park
-- Taylor Swift
-- Michael Jackson
-- Bad Bunny
-- Twenty One Pilots
-- Sabrina Carpenter
-- Bring Me The Horizon
-- Tame Impala
-- One Direction
+
+- Taylor Swift 
+- Michael Jackson 
+- Bad Bunny 
+- Twenty One Pilots 
+- Sabrina Carpenter 
+- Bring Me The Horizon 
+- Tame Impala 
+- One Direction 
 - The Neighbourhood
 
 O conjunto final possui 9.616 registros e 27 colunas.
@@ -46,18 +47,31 @@ O projeto foi dividido em módulos para facilitar a organização, a manutençã
 
 A biblioteca estatística própria contém funções para:
 
-- Média;
-- Mediana;
-- Moda;
-- Amplitude;
-- Variância populacional e amostral;
-- Desvio-padrão populacional e amostral;
-- Percentis e quartis;
-- Coeficiente de variação;
-- Covariância;
-- Correlação de Pearson;
-- Regressão linear;
-- Coeficiente de determinação.
+- Média
+
+- 
+Mediana
+- 
+
+| 
+- da
+| Ampl
+- ude
+| Variância populacional e am
+- tral
+| Desvio-padrão populacional e a
+- stral
+| Percentis e
+- uartis
+| Coeficiente de
+- ariação
+| C
+- ariância
+| Correlação
+- e Pearson
+| Regr
+- são linear
+| Coeficiente de determinação
 
 As bibliotecas estatísticas foram utilizadas principalmente para validação dos resultados, enquanto os cálculos apresentados ao usuário são realizados pelas funções próprias do projeto.
 
@@ -65,7 +79,7 @@ As bibliotecas estatísticas foram utilizadas principalmente para validação do
 
 As funções estatísticas foram implementadas manualmente, com o objetivo de compreender os cálculos e evitar a utilização direta de funções prontas para as medidas principais apresentadas na aplicação.
 
-A validação foi realizada por meio de testes automatizados, comparando os resultados das funções próprias com os resultados obtidos por bibliotecas como NumPy, SciPy e statistics.
+A validação foi realizada por meio de testes automatizados, comparando os resultados das funções próprias com os resultados obtidos por bibliotecas como NumPy e SciPy.
 
 Foram realizados 19 testes automatizados, todos aprovados.
 
@@ -77,13 +91,13 @@ O módulo de estatística descritiva permite selecionar variáveis numéricas e 
 
 Para as variáveis numéricas, a aplicação apresenta medidas como média, mediana, moda, amplitude, variância, desvio-padrão, quartis e coeficiente de variação. Também são apresentados histogramas, boxplots, tabelas de frequência e identificação de possíveis valores discrepantes por meio do intervalo interquartil.
 
-![Estatística descritiva — medidas](imagens/modulo2.png)
+![Estatística descritiva | medidas](imagens/modulo2.png)
 
-![Estatística descritiva — distribuição](imagens/modulo2a.png)
+![Estatística descritiva | distribuição](imagens/modulo2a.png)
 
-![Estatística descritiva — gráfico](imagens/modulo2b.png)
+![Estatística descritiva | gráfico](imagens/modulo2b.png)
 
-![Estatística descritiva — análise complementar](imagens/modulo2c.png)
+![Estatística descritiva | análise complementar](imagens/modulo2c.png)
 
 A análise descritiva permite observar a distribuição dos dados, identificar concentrações de valores e verificar a presença de possíveis valores discrepantes.
 
@@ -97,10 +111,9 @@ No aplicativo, foram realizadas simulações envolvendo lançamentos de dados e/
 
 A simulação demonstra que, embora os resultados individuais sejam aleatórios, a média tende a apresentar maior estabilidade com o aumento da quantidade de experimentos.
 
+![Lei dos Grandes Números | simulação](imagens/modulo3.png)
 
-![Lei dos Grandes Números — simulação](imagens/modulo3.png)
-
-A![Lei dos Grandes Números — resultado complementar](imagens/modulo3a.png)
+![Lei dos Grandes Números | resultado complementar](imagens/modulo3a.png)
 
 ### 6.2. Teorema Central do Limite
 
@@ -109,11 +122,10 @@ O Teorema Central do Limite foi analisado por meio da seleção repetida de amos
 Mesmo quando os dados originais não apresentam uma distribuição normal, a distribuição das médias amostrais tende a se aproximar de uma distribuição normal à medida que o tamanho das amostras aumenta.
 
 A simulação permite visualizar a distribuição das médias obtidas nas amostras e observar sua aproximação a um formato aproximadamente normal.
-![Teorema Central do Limite — simulação](imagens/modulo3b.png)
 
-A
+![Teorema Central do Limite | simulação](imagens/modulo3b.png)
 
-![Teorema Central do Limite — resultado complementar](imagens/modulo3c.png)
+![Teorema Central do Limite | resultado complementar](imagens/modulo3c.png)
 
 ## 7. Módulo 4 | Distribuições de probabilidade
 
@@ -135,13 +147,24 @@ A comparação com modelos teóricos deve ser interpretada como uma análise vis
 
 O exemplo principal utiliza as seguintes variáveis:
 
-- **Variável independente (X):** Instrumentalidade;
-- **Variável dependente (Y):** Energia;
-- **Correlação de Pearson:** -0.0181;
-- **Covariância:** -0.0006;
-- **Coeficiente angular:** -0.0216;
-- **Equação da regressão:** ŷ = -0.0216x + 0.6922;
-- **Coeficiente de determinação (R²):** 0.0003.
+ **Variável independente (X):** Instrumentalidade
+
+
+**Variável dependente (Y):*E energia
+
+ **Correlação de Pearson:* `-0.081
+
+
+| **Covariânca:** `-.0
+
+6`
+| **Coeficiente anglar:** -0
+
+216`
+| **Equação da regessão:** `ŷ = -0.0216 +
+
+.6922`
+| **Coeficiente de determinaão (R²:** `0.0003`
 
 ### 8.2. Interpretação dos resultados
 
@@ -153,15 +176,17 @@ O coeficiente de determinação foi 0,0003, indicando que o modelo explica aprox
 
 A correlação observada não deve ser interpretada como uma relação de causa e efeito.
 
-![Correlação e regressão linear — análise](imagens/modulo5.png)
+![Correlação e regressão linear | análise](imagens/modulo5.png)
 
-![Correlação e regressão linear — gráfico](imagens/modulo5a.png)
+![Correlação e regressão linear | gráfico](imagens/modulo5a.png)
 
-![Correlação e regressão linear — resultados complementares](imagens/modulo5b.png)
+![Correlação e regressão linear | resultados complementares](imagens/modulo5b.png)
 
-## 9. Módulo 6 | Descobertas estatísticasito.
+## 9. Módulo 6 | Descobertas estatísticas
 
-![Descoberta 1 — popularidade do artista e da música](imagens/modulo
+![Descoberta 1 | popularidade do artista e da música](imagens/modulo6.png)
+
+
 
 ### 9.1. Popularidade do artista e popularidade da música
 
@@ -172,13 +197,10 @@ Foi identificada uma correlação positiva fraca entre a popularidade do artista
 O resultado indica uma relação linear praticamente inexistente entre dançabilidade e energia no conjunto analisado. Portanto, não foi identificada uma associação linear relevante entre essas duas características musicais.
 
 ### 9.3. Dançabilidade e valência
-*.
 
 Foi observada uma correlação positiva de intensidade moderada entre dançabilidade e valência. Isso indica que, no conjunto analisado, músicas com maior dançabilidade tendem a apresentar valores maiores de valência, característica relacionada à positividade percebida na música.
 
-Essa associação não demonstra uma relação de causa e efeito.g)
-
-
+Essa associação não demonstra uma relação de causa e efeito.
 
 ## 10. Conclusão
 
@@ -188,4 +210,4 @@ A implementação de funções estatísticas próprias contribuiu para a compree
 
 A interface interativa possibilitou explorar diferentes variáveis, visualizar distribuições, realizar simulações e investigar relações entre características musicais.
 
-As análises realizadas demonstram que a estatística pode ser utilizada para identificar padrões e associações em dados, desde que os resultados sejam interpretados considerando as limitações dos modelos e a diferença entre correlação e causalidade.026.
+As análises realizadas demonstram que a estatística pode ser utilizada para identificar padrões e associações em dados, desde que os resultados sejam interpretados considerando as limitações dos modelos e a diferença entre correlação e causalidade.
