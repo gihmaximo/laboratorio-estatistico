@@ -22,9 +22,7 @@ from stats.minhastats import (
 )
 
 
-# ============================================================
 # CONFIGURAÇÃO
-# ============================================================
 
 st.set_page_config(
     page_title="Laboratório Estatístico",
@@ -33,9 +31,7 @@ st.set_page_config(
 )
 
 
-# ============================================================
 # ESTILO
-# ============================================================
 
 st.markdown(
     """
@@ -68,11 +64,10 @@ st.markdown(
 )
 
 
-# ============================================================
 # DADOS
-# ============================================================
 
 @st.cache_data
+# Carrega o arquivo CSV com os dados utilizados no aplicativo.
 def carregar_dados():
     caminho = "dados/spotify_trabalho.csv"
     return pd.read_csv(caminho)
@@ -81,9 +76,7 @@ def carregar_dados():
 df = carregar_dados()
 
 
-# ============================================================
 # VARIÁVEIS
-# ============================================================
 
 variaveis_numericas = [
     "track_popularity",
@@ -125,7 +118,7 @@ nomes_variaveis = {
     "instrumentalness": "Instrumentalidade",
     "liveness": "Presença de público",
     "valence": "Valência",
-    "energy_danceability_score": "Energia × Dançabilidade",
+    "energy_danceability_score": "Energia x Dançabilidade",
     "artist_name": "Artista",
     "album_name": "Álbum",
     "explicit": "Conteúdo explícito",
@@ -181,10 +174,9 @@ descricoes_variaveis = {
 }
 
 
-# ============================================================
 # FUNÇÕES AUXILIARES
-# ============================================================
 
+# Formata os números para facilitar a leitura na interface.
 def formatar_numero(valor):
     if isinstance(valor, float):
         return f"{valor:,.4f}".replace(",", "X").replace(".", ",").replace("X", ".")
@@ -192,6 +184,7 @@ def formatar_numero(valor):
     return f"{valor:,}".replace(",", ".")
 
 
+# Seleciona uma variável numérica e remove valores inválidos.
 def obter_dados_numericos(nome_variavel):
     valores = pd.to_numeric(
         df[nome_variavel],
@@ -203,6 +196,7 @@ def obter_dados_numericos(nome_variavel):
     return valores.tolist()
 
 
+# Interpreta a assimetria comparando a média e a mediana.
 def interpretar_assimetria(media_valor, mediana_valor):
     diferenca = abs(media_valor - mediana_valor)
 
@@ -236,6 +230,7 @@ def interpretar_assimetria(media_valor, mediana_valor):
     )
 
 
+# Classifica a variabilidade com base no coeficiente de variação.
 def interpretar_cv(cv):
     if cv < 15:
         return "Baixa variabilidade em relação à média."
@@ -246,6 +241,7 @@ def interpretar_cv(cv):
     return "Alta variabilidade em relação à média."
 
 
+# Calcula a função de densidade da distribuição normal.
 def normal_pdf(x, media_valor, desvio):
     if desvio == 0:
         return 0
@@ -265,6 +261,7 @@ def normal_pdf(x, media_valor, desvio):
     )
 
 
+# Calcula a função de densidade da distribuição uniforme.
 def uniforme_pdf(x, minimo, maximo):
     if maximo == minimo:
         return 0
@@ -275,9 +272,7 @@ def uniforme_pdf(x, minimo, maximo):
     return 0
 
 
-# ============================================================
 # MENU
-# ============================================================
 
 st.sidebar.title("Laboratório Estatístico")
 
@@ -294,10 +289,9 @@ pagina = st.sidebar.radio(
 )
 
 
-# ============================================================
-# INÍCIO — MÓDULO 0
-# ============================================================
+# INÍCIO | MÓDULO 0
 
+    # Exibe a página inicial com informações gerais do dataset.
 if pagina == "Início":
 
     st.title("Laboratório Estatístico Interativo")
@@ -378,10 +372,9 @@ if pagina == "Início":
     st.write(", ".join(artistas))
 
 
-# ============================================================
-# ESTATÍSTICA DESCRITIVA — MÓDULO 2
-# ============================================================
+# ESTATÍSTICA DESCRITIVA | MÓDULO 2
 
+    # Apresenta as medidas e os gráficos da estatística descritiva.
 elif pagina == "Estatística Descritiva":
 
     st.title("Estatística Descritiva")
@@ -397,9 +390,7 @@ elif pagina == "Estatística Descritiva":
 
     st.markdown("---")
 
-    # --------------------------------------------------------
     # VARIÁVEL NUMÉRICA
-    # --------------------------------------------------------
 
     if tipo_variavel == "Variável numérica":
 
@@ -544,9 +535,7 @@ elif pagina == "Estatística Descritiva":
 
         st.markdown("---")
 
-        # ----------------------------------------------------
         # FREQUÊNCIAS
-        # ----------------------------------------------------
 
         st.subheader("Distribuição de frequências")
 
@@ -608,9 +597,7 @@ elif pagina == "Estatística Descritiva":
 
         st.markdown("---")
 
-        # ----------------------------------------------------
         # HISTOGRAMA
-        # ----------------------------------------------------
 
         st.subheader("Histograma")
 
@@ -639,9 +626,7 @@ elif pagina == "Estatística Descritiva":
 
         st.markdown("---")
 
-        # ----------------------------------------------------
         # BOXPLOT
-        # ----------------------------------------------------
 
         st.subheader("Boxplot")
 
@@ -660,9 +645,7 @@ elif pagina == "Estatística Descritiva":
 
         plt.close(fig)
 
-        # ----------------------------------------------------
         # OUTLIERS
-        # ----------------------------------------------------
 
         limite_inferior = q1 - 1.5 * (q3 - q1)
         limite_superior = q3 + 1.5 * (q3 - q1)
@@ -695,9 +678,7 @@ elif pagina == "Estatística Descritiva":
 
         st.markdown("---")
 
-        # ----------------------------------------------------
         # INTERPRETAÇÃO
-        # ----------------------------------------------------
 
         st.subheader("Interpretação automática")
 
@@ -713,9 +694,7 @@ elif pagina == "Estatística Descritiva":
         )
 
 
-    # --------------------------------------------------------
     # VARIÁVEL CATEGÓRICA
-    # --------------------------------------------------------
 
     else:
 
@@ -808,10 +787,9 @@ elif pagina == "Estatística Descritiva":
         )
 
 
-# ============================================================
-# MONTE CARLO — MÓDULO 3
-# ============================================================
+# MONTE CARLO | MÓDULO 3
 
+    # Executa as simulações relacionadas à probabilidade.
 elif pagina == "Monte Carlo":
 
     st.title("Probabilidade e Simulação")
@@ -827,9 +805,7 @@ elif pagina == "Monte Carlo":
 
     st.markdown("---")
 
-    # --------------------------------------------------------
     # LEI DOS GRANDES NÚMEROS
-    # --------------------------------------------------------
 
     if experimento == "Lei dos Grandes Números":
 
@@ -926,9 +902,7 @@ elif pagina == "Monte Carlo":
             )
 
 
-    # --------------------------------------------------------
     # TEOREMA CENTRAL DO LIMITE
-    # --------------------------------------------------------
 
     else:
 
@@ -1020,10 +994,9 @@ elif pagina == "Monte Carlo":
             )
 
 
-# ============================================================
-# DISTRIBUIÇÕES — MÓDULO 4
-# ============================================================
+# DISTRIBUIÇÕES | MÓDULO 4
 
+    # Compara os dados observados com distribuições teóricas.
 elif pagina == "Distribuições":
 
     st.title("Distribuições Teóricas")
@@ -1134,7 +1107,7 @@ elif pagina == "Distribuições":
     )
 
     ax.set_title(
-        "Dados observados × distribuições teóricas"
+        "Dados observados x distribuições teóricas"
     )
 
     ax.legend()
@@ -1163,10 +1136,9 @@ elif pagina == "Distribuições":
     )
 
 
-# ============================================================
-# CORRELAÇÃO E REGRESSÃO — MÓDULO 5
-# ============================================================
+# CORRELAÇÃO E REGRESSÃO | MÓDULO 5
 
+    # Calcula e apresenta a relação entre duas variáveis numéricas.
 elif pagina == "Correlação e Regressão":
 
     st.title("Correlação e Regressão Linear")
@@ -1258,9 +1230,7 @@ elif pagina == "Correlação e Regressão":
 
     st.markdown("---")
 
-    # --------------------------------------------------------
     # GRÁFICO
-    # --------------------------------------------------------
 
     st.subheader("Dispersão e reta de regressão")
 
@@ -1345,9 +1315,7 @@ elif pagina == "Correlação e Regressão":
 
     st.markdown("---")
 
-    # --------------------------------------------------------
     # PREVISÃO
-    # --------------------------------------------------------
 
     st.subheader("Previsão")
 
@@ -1371,10 +1339,9 @@ elif pagina == "Correlação e Regressão":
     )
 
 
-# ============================================================
-# DESCOBERTAS — MÓDULO 6
-# ============================================================
+# DESCOBERTAS | MÓDULO 6
 
+    # Apresenta algumas correlações encontradas no dataset.
 elif pagina == "Descobertas":
 
     st.title("Descobertas Estatísticas")
@@ -1384,9 +1351,7 @@ elif pagina == "Descobertas":
         "interessantes encontradas no conjunto de dados."
     )
 
-    # --------------------------------------------------------
     # DESCOBERTA 1
-    # --------------------------------------------------------
 
     x = obter_dados_numericos(
         "artist_popularity"
@@ -1418,9 +1383,7 @@ elif pagina == "Descobertas":
 
     st.markdown("---")
 
-    # --------------------------------------------------------
     # DESCOBERTA 2
-    # --------------------------------------------------------
 
     x = obter_dados_numericos(
         "danceability"
@@ -1452,9 +1415,7 @@ elif pagina == "Descobertas":
 
     st.markdown("---")
 
-    # --------------------------------------------------------
     # DESCOBERTA 3
-    # --------------------------------------------------------
 
     x = obter_dados_numericos(
         "danceability"

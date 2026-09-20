@@ -10,9 +10,7 @@ sys.path.insert(0, str(PASTA_SRC))
 
 import stats.minhastats as ms
 
-# ============================================================
 # DADOS DE TESTE
-# ============================================================
 
 dados_x = [
     12, 15, 18, 22, 25,
@@ -28,9 +26,7 @@ dados_y = [
 TOLERANCIA = 1e-5
 
 
-# ============================================================
 # MEDIDAS DE TENDÊNCIA CENTRAL
-# ============================================================
 
 def test_media():
     resultado = ms.media(dados_x)
@@ -58,9 +54,7 @@ def test_moda():
     assert resultado == esperado
 
 
-# ============================================================
 # MEDIDAS DE DISPERSÃO
-# ============================================================
 
 def test_amplitude():
     resultado = ms.amplitude(dados_x)
@@ -121,9 +115,7 @@ def test_desvio_padrao_amostral():
     assert abs(resultado - esperado) < TOLERANCIA
 
 
-# ============================================================
 # PERCENTIS E QUARTIS
-# ============================================================
 
 def test_percentil():
     resultado = ms.percentil(
@@ -176,9 +168,7 @@ def test_quartis():
     ) < TOLERANCIA
 
 
-# ============================================================
 # COEFICIENTE DE VARIAÇÃO
-# ============================================================
 
 def test_coeficiente_variacao():
     resultado = ms.coeficiente_variacao(
@@ -198,9 +188,7 @@ def test_coeficiente_variacao():
     ) < TOLERANCIA
 
 
-# ============================================================
 # COVARIÂNCIA E CORRELAÇÃO
-# ============================================================
 
 def test_covariancia():
     resultado = ms.covariancia(
@@ -234,9 +222,7 @@ def test_correlacao_pearson():
     ) < TOLERANCIA
 
 
-# ============================================================
 # REGRESSÃO LINEAR
-# ============================================================
 
 def test_regressao_linear():
     coeficiente_angular, coeficiente_linear = (
@@ -263,9 +249,7 @@ def test_regressao_linear():
     ) < TOLERANCIA
 
 
-# ============================================================
-# COEFICIENTE DE DETERMINAÇÃO — R²
-# ============================================================
+# COEFICIENTE DE DETERMINAÇÃO - R²
 
 def test_coeficiente_determinacao():
     resultado = ms.coeficiente_determinacao(
@@ -285,9 +269,7 @@ def test_coeficiente_determinacao():
     ) < TOLERANCIA
 
 
-# ============================================================
 # CASOS EXTREMOS
-# ============================================================
 
 def test_lista_vazia():
     lista_vazia = []

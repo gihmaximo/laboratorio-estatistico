@@ -1,3 +1,5 @@
+# Explorando o dataset original para definir quais dados seriam utilizados.
+
 import pandas as pd
 
 dados = pd.read_csv("dados/spotify_trabalho.csv")

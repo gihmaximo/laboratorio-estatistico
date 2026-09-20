@@ -1,3 +1,4 @@
+# MÉDIA
 def media(lista):
     if not lista:
         return 0
@@ -10,6 +11,7 @@ def media(lista):
     return soma / len(lista)
 
 
+# MEDIANA
 def mediana(lista):
     lista_ordenada = sorted(lista)
     n = len(lista_ordenada)
@@ -21,6 +23,8 @@ def mediana(lista):
     else:
         return (lista_ordenada[meio - 1] + lista_ordenada[meio]) / 2
 
+
+# MODA
 def moda(lista):
     if not lista:
         return None
@@ -47,12 +51,16 @@ def moda(lista):
     
     return modas
 
+
+# AMPLITUDE
 def amplitude(lista):
     if not lista:
         return 0
     
     return max(lista) - min(lista)
 
+
+# VARIÂNCIA POPULACIONAL
 def variancia_populacional(lista):
     n = len(lista)
     if n == 0:
@@ -64,6 +72,8 @@ def variancia_populacional(lista):
     
     return soma_quadrados / n
 
+
+# VARIÂNCIA AMOSTRAL
 def variancia_amostral(lista):
     n = len(lista)
 
@@ -77,14 +87,19 @@ def variancia_amostral(lista):
     return soma_quadrados / (n - 1)
 
 
+# DESVIO PADRÃO POPULACIONAL
 def desvio_padrao_populacional(lista):
     var_pop = variancia_populacional(lista)
     return var_pop ** 0.5
 
+
+# DESVIO PADRÃO AMOSTRAL
 def desvio_padrao_amostral(lista):
     var_amostral = variancia_amostral(lista)
     return var_amostral ** 0.5
 
+
+# PERCENTIS
 def percentil(lista, p):
     if not lista:
         return 0
@@ -106,6 +121,8 @@ def percentil(lista, p):
     
     return (lista_ordenada[idx_baixo] * peso_baixo) + (lista_ordenada[idx_alto] * peso_alto)
 
+
+# QUARTIS
 def quartis(lista):
     if not lista:
         return (0, 0, 0)
@@ -116,6 +133,8 @@ def quartis(lista):
     
     return (q1, q2, q3)
 
+
+# COEFICIENTE DE VARIAÇÃO
 def coeficiente_variacao(lista):
     med = media(lista)
     if med == 0:
@@ -124,6 +143,8 @@ def coeficiente_variacao(lista):
     dp = desvio_padrao_amostral(lista)
     return (dp / med) * 100
 
+
+# COVARIÂNCIA
 def covariancia(lista_x, lista_y):
     n = len(lista_x)
     if n != len(lista_y):
@@ -138,6 +159,8 @@ def covariancia(lista_x, lista_y):
     
     return soma_produtos / (n - 1)
 
+
+# CORRELAÇÃO DE PEARSON
 def correlacao_pearson(lista_x, lista_y):
     n = len(lista_x)
     if n != len(lista_y):
@@ -152,6 +175,8 @@ def correlacao_pearson(lista_x, lista_y):
         
     return cov / (dp_x * dp_y)
 
+
+# REGRESSÃO LINEAR
 def regressao_linear(lista_x, lista_y):
     if len(lista_x) != len(lista_y):
         raise ValueError("As duas listas devem ter o mesmo tamanho")
@@ -188,6 +213,7 @@ def regressao_linear(lista_x, lista_y):
     return coeficiente_angular, coeficiente_linear
 
 
+# COEFICIENTE DE DETERMINAÇÃO - R²
 def coeficiente_determinacao(lista_x, lista_y):
     if len(lista_x) != len(lista_y):
         raise ValueError("As duas listas devem ter o mesmo tamanho")

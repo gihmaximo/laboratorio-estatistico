@@ -1,3 +1,5 @@
+# Filtrando o dataset original para manter apenas os artistas que seriam utilizados no trabalho.
+
 import duckdb
 
 artistas = [
@@ -24,13 +26,13 @@ dados = duckdb.sql(f"""
 print("Antes da remoção de duplicatas:")
 print(dados.shape)
 
-# Remove músicas repetidas por causa de colaborações
+# Removendo músicas repetidas por causa de colaborações
 dados = dados.drop_duplicates(subset="track_id")
 
 print("Depois da remoção de duplicatas:")
 print(dados.shape)
 
-# Salva o dataset final do trabalho
+# Salvando o dataset final do trabalho
 dados.to_csv("dados/spotify_trabalho.csv", index=False)
 
 print("Arquivo salvo com sucesso!")
